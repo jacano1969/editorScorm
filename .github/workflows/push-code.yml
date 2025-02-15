@@ -1,0 +1,27 @@
+name: Auto Commit Code
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # Permite ejecución manual
+
+jobs:
+  commit-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Configurar Git
+        run: |
+          git config --global user.name "ChatGPT Bot"
+          git config --global user.email "bot@example.com"
+
+      - name: Agregar cambios y hacer commit
+        run: |
+          git add .
+          git commit -m "Actualización automática desde ChatGPT"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
